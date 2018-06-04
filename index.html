@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Feedback</title>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<style type="text/css">
+.header {
+	width: 100%;
+	height: 20px;
+	float: left;
+	overflow: hidden;
+}
+#feedbackButton {
+	position: relative;
+	left: 1050px;
+	text-decoration: none;
+	font-weight: bold;
+	cursor: pointer;
+	font-family: arial;
+}
+#content {
+	width: 1050px;
+	height: 98%;
+	float: left;
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+#contentFrame {
+	min-width: 1000px;
+}
+#feedback {
+	width: 550px;
+	height: 98%;
+	float: right;
+	overflow: hidden;
+}
+</style>
+</head>
+<body style="margin:0; padding:0; width:1600px">
+<div class="header">
+	<span id="feedbackButton"></span>
+</div>
+<div id="content">
+  <iframe id="contentFrame" src="" width="100%" height="100%"></iframe>
+</div>
+<div id="feedback">
+  <iframe id="feedbackFrame" src="" width="100%" height="100%"></iframe>
+</div>
+</body>
+<script>
+$(document).ready(function() {
+	function getParam(name) {
+		var value = new RegExp('[\?&]' + name +
+			'=([^&#]*)').exec(window.location.href);
+		return (value == null ? null : decodeURIComponent(value[1]) || 0 )
+	}
+	function config(conf) {
+		$('title').text(conf.title)
+		$('#contentFrame').attr('src', conf.left)
+		$('#feedbackFrame').attr('src', conf.right)
+	}
+	function setButtonLabelAndPosition() {
+		$('#feedbackButton').html($('body').scrollLeft() > 0 ?
+			'move &rarr;' :'&larr; move')
+		$('#feedbackButton').offset({top:0, left:Math.min(
+			1050, $(window).width() + $(window).scrollLeft() - 75)})
+	}
+	$(window).resize(function() {
+		if ($(window).width() >= 1600) {
+			$('#feedbackButton').hide()
+		} else {
+			$('#feedbackButton').show()
+			setButtonLabelAndPosition()
+		}
+	})
+	$(window).scroll(setButtonLabelAndPosition)
+	$('#feedbackButton').click(function() {
+		$(window).scrollLeft($(window).scrollLeft() > 0 ? 0 : Math.max(
+			550, 1600 - $(window).width()))
+	})
+	setButtonLabelAndPosition()
+
+	/*
+	 * Configure side-by-side feedback by providing the
+	 * following properties:
+	 *   title = Title of page
+	 *   left = URL of site to be reviewed
+	 *   right = URL of page (e.g., etherpad) for feedback
+	 */
+	config({
+		title : getParam('title'),
+		left  : getParam('left'),
+		right : getParam('right')
+	})
+})
+</script>
+</html>
