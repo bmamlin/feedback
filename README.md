@@ -18,7 +18,7 @@ Just direct people to `https://bmamlin.github.io/feedback/?left={left}&right={ri
 
 For example:
 
-[https://bmamlin.github.io/feedback/?left=https://deanhume.github.io/beer/&right=https://beta.etherpad.org/p/feedback&title=Feedback+demo](https://bmamlin.github.io/feedback/?left=https://deanhume.github.io/beer/&right=https://beta.etherpad.org/p/feedback&title=Feedback+demo)
+[https://bmamlin.github.io/feedback/?left=https://deanhume.github.io/beer/&right=https://beta.etherpad.org/p/feedback&title=Feedback%20demo](https://bmamlin.github.io/feedback/?left=https://deanhume.github.io/beer/&right=https://beta.etherpad.org/p/feedback&title=Feedback%20demo)
 
 For an improved experience, send the URL through a shortener and give people a short link, like:
 
