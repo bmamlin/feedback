@@ -12,7 +12,7 @@
 }
 #feedbackButton {
 	position: relative;
-	left: 1050px;
+	float: right;
 	text-decoration: none;
 	font-weight: bold;
 	cursor: pointer;
@@ -49,21 +49,23 @@
 </body>
 <script>
 $(document).ready(function() {
+	var showing = true;
 	function getParam(name) {
 		var value = new RegExp('[\?&]' + name +
 			'=([^&#]*)').exec(window.location.href);
-		return (value == null ? null : decodeURIComponent(value[1]) || 0 )
+		return (value == null ? null : decodeURIComponent(value[1]) || 0 );
 	}
 	function config(conf) {
-		$('title').text(conf.title)
-		$('#contentFrame').attr('src', conf.left)
-		$('#feedbackFrame').attr('src', conf.right)
+		$('title').text(conf.title);
+		$('#contentFrame').attr('src', conf.left);
+		$('#feedbackFrame').attr('src', conf.right);
 	}
 	function setButtonLabelAndPosition() {
-		$('#feedbackButton').html($('body').scrollLeft() > 0 ?
-			'move &rarr;' :'&larr; move')
+		$('#feedbackButton').html(showing ?
+			'feedback &rarr;' : '&larr; feedback');
 		$('#feedbackButton').offset({top:0, left:Math.min(
 			1050, $(window).width() + $(window).scrollLeft() - 75)})
+		showing = !showing;
 	}
 	$(window).resize(function() {
 		if ($(window).width() >= 1600) {
